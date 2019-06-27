@@ -8,6 +8,7 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
 
     @commands.command(name='load')
     async def load_cog(self, ctx, *, cog: str):
+        """Load a Cog"""
         try:
             self.bot.load_extension("cogs." + cog)
         except Exception as e:
@@ -17,6 +18,7 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
 
     @commands.command(name='unload')
     async def unload_cog(self, ctx, *, cog: str):
+        """Unload a Cog"""
         try:
             self.bot.unload_extension("cogs." + cog)
         except Exception as e:
@@ -26,6 +28,7 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
 
     @commands.command(name='reload')
     async def reload_cog(self, ctx, *, cog: str):
+        """Reload a Cog"""
         try:
             self.bot.unload_extension("cogs." + cog)
             self.bot.load_extension("cogs." + cog)
