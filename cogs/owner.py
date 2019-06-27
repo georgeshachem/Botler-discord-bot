@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord
 import sys
+import asyncio
 
 
 class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': True}):
@@ -45,20 +46,22 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
         return True
 
     @commands.command(name='join')
-    async def join_voice_channel(self, ctx, *, channel_name: str):
+    async def join_voice_channel(self, ctx, *, channel_name: str =  None):
         """Join a Voice Channel by name"""
-        voice_channels = [x for x in ctx.guild.voice_channels]
-        for channel in voice_channels:
-            if channel_name.lower() in channel.name.lower():
-                await channel.connect()
+        if channel_name is None:
+            vc = ctx.author.voice.channel
+            if vc:
+                await vc.connect()
+        else:
+            voice_channels = [x for x in ctx.guild.voice_channels]
+            for channel in voice_channels:
+                if channel_name.lower() in channel.name.lower():
+                    await channel.connect()
 
     @commands.command(name='leave')
-    async def leave_voice_channel(self, ctx, *, channel_name: str):
+    async def leave_voice_channel(self, ctx):
         """Leave a Voice Channel"""
-        voice_clients = [x for x in self.bot.voice_clients]
-        for client in voice_clients:
-            if channel_name.lower() in client.channel.name.lower():
-                await client.disconnect()
+        await ctx.guild.voice_client.disconnect()
 
     @commands.command(aliases=['quit'])
     async def shutdown(self, ctx):
@@ -90,6 +93,12 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
         """Change bot's name in the guild"""
         await ctx.guild.me.edit(nick=name)
 
+    @commands.command(name='say')
+    async def say_text(self, ctx):
+        """Say text on voice chat"""
+        vc = ctx.guild.voice_client
+        if vc != None:
+            vc.play(discord.FFmpegPCMAudio("botler.mp3"))
 
 def setup(bot):
     bot.add_cog(OwnerCog(bot))
