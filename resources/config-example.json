@@ -1,0 +1,6 @@
+{
+    "token": "YOUR API TOKEN GOES HERE",
+    "prefixes": "&",
+	"description": "YOUR DESCRIPTION HERE",
+	"cogs_dir": "cogs"
+}
