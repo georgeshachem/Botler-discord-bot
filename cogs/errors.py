@@ -30,5 +30,9 @@ class ErrorHandler(commands.Cog):
         elif isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
             return await ctx.send(error)
 
+        else:
+            print(error)
+            return
+
 def setup(bot):
     bot.add_cog(ErrorHandler(bot))
