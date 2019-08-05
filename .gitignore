@@ -2,3 +2,4 @@
 .idea/
 resources/config.json
 __pycache__
+ffmpeg.exe
