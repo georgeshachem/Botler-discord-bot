@@ -46,17 +46,14 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
         return True
 
     @commands.command(name='join')
-    async def join_voice_channel(self, ctx, *, channel_name: str =  None):
+    async def join_voice_channel(self, ctx, *, channel_name: discord.VoiceChannel =  None):
         """Join a Voice Channel by name"""
         if channel_name is None:
             vc = ctx.author.voice.channel
             if vc:
                 await vc.connect()
         else:
-            voice_channels = [x for x in ctx.guild.voice_channels]
-            for channel in voice_channels:
-                if channel_name.lower() in channel.name.lower():
-                    await channel.connect()
+            await channel_name.connect()
 
     @commands.command(name='leave')
     async def leave_voice_channel(self, ctx):
