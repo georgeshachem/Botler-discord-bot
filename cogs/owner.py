@@ -92,8 +92,15 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
         await ctx.guild.me.edit(nick=name)
 
     @commands.command(name='say')
-    async def say_text(self, ctx):
+    async def say_text(self, ctx, *, channel_name: discord.VoiceChannel =  None):
         """Say text on voice chat"""
+        if (not ctx.guild.voice_client):
+            if channel_name is None:
+                vc = ctx.author.voice.channel
+                if vc:
+                    await vc.connect()
+            else:
+                await channel_name.connect()
         vc = ctx.guild.voice_client
         if vc != None:
             vc.play(discord.FFmpegPCMAudio("botler.mp3"))
