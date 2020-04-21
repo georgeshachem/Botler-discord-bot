@@ -10,6 +10,11 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
     def __init__(self, bot):
         self.bot = bot
 
+    async def cog_check(self, ctx):
+        if not await ctx.bot.is_owner(ctx.author):
+            raise commands.NotOwner('Owner only.')
+        return True
+
     @commands.command(name='load')
     async def load_cog(self, ctx, *, cog: str):
         """Load a Cog"""
@@ -40,11 +45,6 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
         else:
             await ctx.send('**`SUCCESS`**')
-
-    async def cog_check(self, ctx):
-        if not await ctx.bot.is_owner(ctx.author):
-            raise commands.NotOwner('Owner only.')
-        return True
 
     @commands.command(name='join')
     async def join_voice_channel(self, ctx, *, channel_name: discord.VoiceChannel =  None):
