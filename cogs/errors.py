@@ -16,6 +16,7 @@ class ErrorHandler(commands.Cog):
         error = getattr(error, 'original', error)
         
         if isinstance(error, ignored):
+            print("Command not found: ", error)
             return
 
         elif isinstance(error, commands.DisabledCommand):

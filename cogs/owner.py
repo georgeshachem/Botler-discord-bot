@@ -46,7 +46,7 @@ class OwnerCog(commands.Cog, name='Owner Commands', command_attrs={'hidden': Tru
         else:
             await ctx.send('**`SUCCESS`**')
 
-    @commands.command(name='join')
+    @commands.command(name='ojoin')
     async def join_voice_channel(self, ctx, *, channel_name: discord.VoiceChannel =  None):
         """Join a Voice Channel by name"""
         if channel_name is None:
