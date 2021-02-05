@@ -1,2 +1,2 @@
 discord.py[voice]==1.6.0
-youtube-dl
+youtube-dl==2021.2.4.1
